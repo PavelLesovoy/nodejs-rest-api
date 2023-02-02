@@ -3,9 +3,8 @@ const contacts = require("../../models/contacts");
 const { addSchema } = require("../../schemas/contacts");
 
 const postContact = async (req, res, next) => {
+  const { error } = addSchema.validate(req.body);
   try {
-    const { error } = addSchema.validate(req.body);
-
     if (error) {
       throw HttpError(400, "missing required name field");
     }
