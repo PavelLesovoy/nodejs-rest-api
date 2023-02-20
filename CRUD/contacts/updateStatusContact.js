@@ -1,15 +1,10 @@
 const { Contact } = require("../../models/contacts");
 const { HttpError } = require("../../helpers");
-const { schemas } = require("../../models/contacts");
+// const { HttpError } = require("../helpers");
+const { validateUpdateFavoriteSchema } = require("../../middlewares");
 
 const updateStatusContact = async (req, res, next) => {
   try {
-    const { error } = schemas.updateFavoriteSchema.validate(req.body);
-
-    if (error) {
-      throw HttpError(400, "missing field favorite");
-    }
-
     const { contactId } = req.params;
     const result = await Contact.findByIdAndUpdate(contactId, req.body, {
       new: true,
@@ -25,4 +20,7 @@ const updateStatusContact = async (req, res, next) => {
   }
 };
 
-module.exports = updateStatusContact;
+module.exports = {
+  validateUpdateFavoriteSchema,
+  updateStatusContact,
+};
