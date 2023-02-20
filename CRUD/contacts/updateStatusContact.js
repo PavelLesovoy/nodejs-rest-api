@@ -1,9 +1,9 @@
+const { Contact } = require("../../models/contacts");
 const { HttpError } = require("../../helpers");
 // const { HttpError } = require("../helpers");
-const { Contact } = require("../../models/contacts");
-const { validateUpdateSchema } = require("../../middlewares");
+const { validateUpdateFavoriteSchema } = require("../../middlewares");
 
-const updateById = async (req, res, next) => {
+const updateStatusContact = async (req, res, next) => {
   try {
     const { contactId } = req.params;
     const result = await Contact.findByIdAndUpdate(contactId, req.body, {
@@ -21,6 +21,6 @@ const updateById = async (req, res, next) => {
 };
 
 module.exports = {
-  validateUpdateSchema,
-  updateById,
+  validateUpdateFavoriteSchema,
+  updateStatusContact,
 };
