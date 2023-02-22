@@ -1,15 +1,10 @@
 const bcrypt = require("bcrypt");
 const { User } = require("../../models/user");
 const { HttpError } = require("../../helpers");
-const { schemas } = require("../../models/user");
+const { validateSignup } = require("../../middlewares/validateSignup");
 
 const signup = async (req, res, next) => {
   try {
-    const { error } = schemas.registerSchema.validate(req.body);
-
-    if (error) {
-      throw HttpError(400, error.message);
-    }
     const { email, password } = req.body;
     const user = await User.findOne({ email });
 
@@ -32,4 +27,4 @@ const signup = async (req, res, next) => {
   }
 };
 
-module.exports = signup;
+module.exports = { signup, validateSignup };

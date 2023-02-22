@@ -3,15 +3,9 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../../models/user");
 const { HttpError } = require("../../helpers");
 const { SECRET_KEY } = process.env;
-const { schemas } = require("../../models/user");
 
 const login = async (req, res, next) => {
   try {
-    const { error } = schemas.loginSchema.validate(req.body);
-
-    if (error) {
-      throw HttpError(400, "missing required name field");
-    }
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
