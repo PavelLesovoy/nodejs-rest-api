@@ -6,7 +6,7 @@ const { updateById } = require("../../CRUD/contacts/updateById");
 const {
   updateStatusContact,
 } = require("../../CRUD/contacts/updateStatusContact");
-const { isValidId } = require("../../middlewares");
+const { isValidId, authenticate } = require("../../middlewares");
 const { validateAddSchema } = require("../../middlewares");
 const {
   validateUpdateSchema,
@@ -15,18 +15,25 @@ const {
   validateUpdateFavoriteSchema,
 } = require("../../middlewares/validateUpdateFavoriteSchema");
 
-router.get("/", ctrl.getAllContacts);
+router.get("/", authenticate, ctrl.getAllContacts);
 
-router.get("/:contactId", isValidId, ctrl.getById);
+router.get("/:contactId", authenticate, isValidId, ctrl.getById);
 
-router.post("/", validateAddSchema, postContact);
+router.post("/", authenticate, validateAddSchema, postContact);
 
-router.delete("/:contactId", isValidId, ctrl.removeById);
+router.delete("/:contactId", authenticate, isValidId, ctrl.removeById);
 
-router.put("/:contactId", validateUpdateSchema, isValidId, updateById);
+router.put(
+  "/:contactId",
+  authenticate,
+  validateUpdateSchema,
+  isValidId,
+  updateById
+);
 
 router.patch(
   "/:contactId/favorite",
+  authenticate,
   validateUpdateFavoriteSchema,
   isValidId,
   updateStatusContact
