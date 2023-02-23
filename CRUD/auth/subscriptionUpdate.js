@@ -7,7 +7,8 @@ const {
 const subscriptionUpdate = async (req, res, next) => {
   try {
     const { _id } = req.user;
-    const result = await User.findByIdAndUpdate(_id, req.body, { new: true });
+    const { creditInfo, ...updateData } = req.body;
+    const result = await User.findByIdAndUpdate(_id, updateData, { new: true });
 
     if (!result) {
       throw HttpError(404, "Not found");
