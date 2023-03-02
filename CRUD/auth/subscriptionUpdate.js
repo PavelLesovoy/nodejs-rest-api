@@ -7,7 +7,7 @@ const {
 const subscriptionUpdate = async (req, res, next) => {
   try {
     const { _id } = req.user;
-    const { creditInfo, ...updateData } = req.body;
+    const { ...updateData } = req.body;
     const result = await User.findByIdAndUpdate(_id, updateData, { new: true });
 
     if (!result) {

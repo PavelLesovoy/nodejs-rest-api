@@ -8,6 +8,7 @@ const {
   subscriptionUpdate,
   validateSubscriptionUpdate,
 } = require("../../CRUD/auth/subscriptionUpdate");
+const { upload } = require("../../middlewares");
 
 router.post("/signup", validateSignup, signup);
 
@@ -22,6 +23,13 @@ router.patch(
   validateSubscriptionUpdate,
   authenticate,
   subscriptionUpdate
+);
+
+router.patch(
+  "/avatars",
+  authenticate,
+  upload.single("avatar"),
+  ctrl.updateAvatar
 );
 
 module.exports = router;
