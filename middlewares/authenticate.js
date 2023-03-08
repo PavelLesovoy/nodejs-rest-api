@@ -1,12 +1,14 @@
 const jwt = require("jsonwebtoken");
 const { User } = require("../models/user");
 const { HttpError } = require("../helpers");
+require("dotenv").config();
 const { SECRET_KEY } = process.env;
 
 const authenticate = async (req, res, next) => {
   const { authorization = "" } = req.headers;
   const [bearer, token] = authorization.split(" ");
-  if (bearer !== "Bearer" || token) {
+  if (bearer !== "Bearer" || !token) {
+    console.log("token", token);
     next(HttpError(401));
   }
 
