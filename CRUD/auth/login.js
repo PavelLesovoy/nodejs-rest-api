@@ -5,8 +5,6 @@ const { HttpError } = require("../../helpers");
 require("dotenv").config();
 const { SECRET_KEY } = process.env;
 
-console.log("Secret key", SECRET_KEY);
-
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -25,7 +23,6 @@ const login = async (req, res, next) => {
     };
 
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
-    console.log("token", token);
     await User.findByIdAndUpdate(user._id, { token });
 
     res.json({
