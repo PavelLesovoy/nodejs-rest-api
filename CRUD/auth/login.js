@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { User } = require("../../models/user");
 const { HttpError } = require("../../helpers");
+require("dotenv").config();
 const { SECRET_KEY } = process.env;
 
 const login = async (req, res, next) => {
@@ -25,7 +26,9 @@ const login = async (req, res, next) => {
     await User.findByIdAndUpdate(user._id, { token });
 
     res.json({
-      token,
+      status: "success",
+      code: 200,
+      token: token,
       user: {
         email: user.email,
         subscription: user.subscription,
