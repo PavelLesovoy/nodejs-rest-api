@@ -4,6 +4,7 @@ const validateUpdateSchema = require("./validateUpdateSchema");
 const validateUpdateFavoriteSchema = require("./validateUpdateFavoriteSchema");
 const authenticate = require("./authenticate");
 const upload = require("./upload");
+const validateEmail = require("./validateEmail");
 
 module.exports = {
   isValidId,
@@ -12,4 +13,5 @@ module.exports = {
   validateUpdateFavoriteSchema,
   authenticate,
   upload,
+  validateEmail,
 };

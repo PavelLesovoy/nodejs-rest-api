@@ -9,6 +9,8 @@ const {
   validateSubscriptionUpdate,
 } = require("../../CRUD/auth/subscriptionUpdate");
 const { upload } = require("../../middlewares");
+const { resendVerifyEmail } = require("../../CRUD/auth/resendVerifyEmail");
+const { validateEmail } = require("../../middlewares/validateEmail");
 
 router.post("/signup", validateSignup, signup);
 
@@ -34,6 +36,6 @@ router.patch(
 
 router.get("/verify/:verificationToken", ctrl.verify);
 
-router.post("/verify", ctrl.resendVerifyEmail);
+router.post("/verify", validateEmail, ctrl.resendVerifyEmail);
 
 module.exports = router;

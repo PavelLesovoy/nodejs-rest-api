@@ -1,16 +1,10 @@
 const { User } = require("../../models/user");
 const { HttpError, sendEmail } = require("../../helpers");
 const { BASE_URL } = process.env;
-const { schemas } = require("../../models/user");
+const { validateEmail } = require("../../middlewares/validateEmail");
 
 const resendVerifyEmail = async (req, res, next) => {
   try {
-    const { error } = schemas.emailSchema.validate(req.body);
-
-    if (error) {
-      throw HttpError(400, error.message);
-    }
-
     const { email } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
@@ -36,4 +30,4 @@ const resendVerifyEmail = async (req, res, next) => {
   }
 };
 
-module.exports = resendVerifyEmail;
+module.exports = { resendVerifyEmail, validateEmail };
