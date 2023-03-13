@@ -1,6 +1,5 @@
 const { Contact } = require("../../models/contacts");
 const { HttpError } = require("../../helpers");
-// const { HttpError } = require("../helpers");
 const { validateUpdateFavoriteSchema } = require("../../middlewares");
 
 const updateStatusContact = async (req, res, next) => {
