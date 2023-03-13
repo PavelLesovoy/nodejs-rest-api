@@ -9,6 +9,8 @@ const {
   validateSubscriptionUpdate,
 } = require("../../CRUD/auth/subscriptionUpdate");
 const { upload } = require("../../middlewares");
+const { resendVerifyEmail } = require("../../CRUD/auth/resendVerifyEmail");
+const { validateEmail } = require("../../middlewares/validateEmail");
 
 router.post("/signup", validateSignup, signup);
 
@@ -31,5 +33,9 @@ router.patch(
   upload.single("avatar"),
   ctrl.updateAvatar
 );
+
+router.get("/verify/:verificationToken", ctrl.verify);
+
+router.post("/verify", validateEmail, resendVerifyEmail);
 
 module.exports = router;
