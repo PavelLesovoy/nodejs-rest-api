@@ -3,6 +3,9 @@ const { User } = require("../../models/user");
 const { HttpError } = require("../../helpers");
 const { validateSignup } = require("../../middlewares/validateSignup");
 const gravatar = require("gravatar");
+const { v4 } = require("uuid");
+const { BASE_URL } = process.env;
+const sendEmail = require("../../helpers/sendEmail");
 
 const signup = async (req, res, next) => {
   try {
@@ -15,7 +18,7 @@ const signup = async (req, res, next) => {
 
     const hashPassword = await bcrypt.hash(password, 10);
     const avatarURL = gravatar.url(email);
-    const verificationToken = UUID();
+    const verificationToken = v4();
     const newUser = await User.create({
       ...req.body,
       password: hashPassword,
